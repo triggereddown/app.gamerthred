@@ -7,8 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import CheckBox from "react-native-checkbox"; // ✅ Updated
-import Icon from "@react-native-vector-icons/feather"; // ✅ Use new icon package
+// import Icon from "@react-native-vector-icons/Feather";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -20,9 +19,15 @@ const Signup = () => {
   const [agreedTOS, setAgreedTOS] = useState(false);
   const [agreedPrivacy, setAgreedPrivacy] = useState(false);
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: keyof typeof formData, value: string) => {
     setFormData({ ...formData, [name]: value });
   };
+
+  const renderCheckbox = (checked: boolean, onPress: () => void) => (
+    <TouchableOpacity onPress={onPress} style={styles.checkbox}>
+      {/* {checked && <Icon name="check" size={16} color="#fff" />} */}
+    </TouchableOpacity>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -34,7 +39,7 @@ const Signup = () => {
         {/* Username */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>
-            <Icon name="user-plus" size={14} color="#aaa" /> Username
+            {/* <Icon name="user-plus" size={14} color="#aaa" /> Username */}
           </Text>
           <TextInput
             style={styles.input}
@@ -48,7 +53,7 @@ const Signup = () => {
         {/* Email */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>
-            <Icon name="mail" size={14} color="#aaa" /> Email
+            {/* <Icon name="mail" size={14} color="#aaa" /> Email */}
           </Text>
           <TextInput
             style={styles.input}
@@ -63,7 +68,7 @@ const Signup = () => {
         {/* Password */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>
-            <Icon name="lock" size={14} color="#aaa" /> Password
+            {/* <Icon name="lock" size={14} color="#aaa" /> Password */}
           </Text>
           <TextInput
             style={styles.input}
@@ -78,21 +83,15 @@ const Signup = () => {
         {/* Terms & Privacy */}
         <View style={styles.agreements}>
           <View style={styles.agreementRow}>
-            <CheckBox
-              label=""
-              checked={agreedTOS}
-              onChange={() => setAgreedTOS(!agreedTOS)}
-            />
+            {renderCheckbox(agreedTOS, () => setAgreedTOS(!agreedTOS))}
             <Text style={styles.agreementText}>
               I agree to the <Text style={styles.link}>Terms & Conditions</Text>
             </Text>
           </View>
           <View style={styles.agreementRow}>
-            <CheckBox
-              label=""
-              checked={agreedPrivacy}
-              onChange={() => setAgreedPrivacy(!agreedPrivacy)}
-            />
+            {renderCheckbox(agreedPrivacy, () =>
+              setAgreedPrivacy(!agreedPrivacy)
+            )}
             <Text style={styles.agreementText}>
               I agree to the <Text style={styles.link}>Privacy Policy</Text>
             </Text>
@@ -205,5 +204,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#aaa",
     fontSize: 12,
+  },
+  checkbox: {
+    width: 18,
+    height: 18,
+    borderWidth: 1,
+    borderColor: "#999",
+    borderRadius: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#333",
   },
 });

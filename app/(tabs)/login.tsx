@@ -7,16 +7,20 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Feather"; // for Mail, Lock, LogIn
+// import Icon from "react-native-vector-icons/Feather"; // for Mail, Lock, LogIn
 // import { Icon } from "@expo/vector-icons/build/createIconSet";
 
-const Login = ({ setShowLogin }) => {
+type LoginProps = {
+  setShowLogin?: (show: boolean) => void;
+};
+
+const Login = ({ setShowLogin }: LoginProps) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: "email" | "password", value: string) => {
     setFormData({ ...formData, [name]: value });
   };
 
@@ -30,7 +34,7 @@ const Login = ({ setShowLogin }) => {
         {/* Email */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>
-            <Icon name="mail" size={14} color="#aaa" /> Email
+            {/* <Icon name="mail" size={14} color="#aaa" /> Email */}
           </Text>
           <TextInput
             style={styles.input}
@@ -45,7 +49,7 @@ const Login = ({ setShowLogin }) => {
         {/* Password */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>
-            <Icon name="lock" size={14} color="#aaa" /> Password
+            {/* <Icon name="lock" size={14} color="#aaa" /> Password */}
           </Text>
           <TextInput
             style={styles.input}
@@ -64,7 +68,7 @@ const Login = ({ setShowLogin }) => {
 
         {/* Login Button */}
         <TouchableOpacity style={styles.loginButton}>
-          <Icon name="log-in" size={18} color="#fff" />
+          {/* <Icon name="log-in" size={18} color="#fff" /> */}
           <Text style={styles.loginButtonText}> Log In</Text>
         </TouchableOpacity>
 
