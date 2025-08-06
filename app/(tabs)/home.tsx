@@ -10,7 +10,7 @@ import {
 
 const { width } = Dimensions.get("window");
 
-const categories = ["Daily", "Weekly", "Monthly", "Brand"];
+const categories = ["All Categories", "FF", "BGMI", "Valorant"];
 const emojis = ["🎮", "🎮", "🎮"];
 
 export default function Home() {
