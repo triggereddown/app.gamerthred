@@ -1,176 +1,171 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-// import Icon from "react-native-vector-icons/Feather"; // for Mail, Lock, LogIn
-// import { Icon } from "@expo/vector-icons/build/createIconSet";
 
-type LoginProps = {
-  setShowLogin?: (show: boolean) => void;
-};
+const menuData = [
+  { name: "Streaks", value: "5/7" },
+  { name: "Badges earned", value: "29" },
+  { name: "Redeem history" },
+  { name: "Settings and Logout" },
+  { name: "Invite friends" },
+];
 
-const Login = ({ setShowLogin }: LoginProps) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (name: "email" | "password", value: string) => {
-    setFormData({ ...formData, [name]: value });
-  };
-
+const login = () => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.title}>
-          <Text style={styles.highlight}>Welcome Back</Text> to GamerThred
-        </Text>
-
-        {/* Email */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>
-            {/* <Icon name="mail" size={14} color="#aaa" /> Email */}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="you@example.com"
-            placeholderTextColor="#888"
-            value={formData.email}
-            onChangeText={(text) => handleChange("email", text)}
-            keyboardType="email-address"
-          />
+    <View style={styles.outerContainer}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Top Section with Profile Card */}
+        <View style={styles.profileCard}>
+          <View style={styles.profilePic} /> {/* placeholder for image */}
+          <View style={styles.userInfo}>
+            <Text style={styles.username}>Username : Max4jin</Text>
+            <Text style={styles.gtc}>GTC - 2,230</Text>
+          </View>
         </View>
 
-        {/* Password */}
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>
-            {/* <Icon name="lock" size={14} color="#aaa" /> Password */}
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your password"
-            placeholderTextColor="#888"
-            value={formData.password}
-            onChangeText={(text) => handleChange("password", text)}
-            secureTextEntry
-          />
+        {/* Progress Bar */}
+        <Text style={styles.progressLabel}>Progress Bar</Text>
+        <View style={styles.progressBarContainer}>
+          <View style={styles.progressFill} />
         </View>
+        <Text style={styles.levelText}>Level 5 100/300</Text>
 
-        {/* Forgot Password */}
-        <TouchableOpacity>
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
-        </TouchableOpacity>
+        {/* Yellow Settings Card */}
+        <View style={styles.settingsCard}>
+          <Text style={styles.gtcEarned}>GTC Earned</Text>
+          <Text style={styles.gtcValue}>2,230</Text>
 
-        {/* Login Button */}
-        <TouchableOpacity style={styles.loginButton}>
-          {/* <Icon name="log-in" size={18} color="#fff" /> */}
-          <Text style={styles.loginButtonText}> Log In</Text>
-        </TouchableOpacity>
+          {menuData.map((item, index) => (
+            <TouchableOpacity key={index} style={styles.menuItem}>
+              <Text style={styles.menuText}>{item.name}</Text>
+              {item.value && <Text style={styles.menuValue}>{item.value}</Text>}
+            </TouchableOpacity>
+          ))}
 
-        {/* Signup */}
-        <Text style={styles.signupText}>
-          Don't have an account? <Text style={styles.signupLink}>Sign Up</Text>
-        </Text>
-
-        {/* Close Login */}
-        {setShowLogin && (
-          <TouchableOpacity onPress={() => setShowLogin(false)}>
-            <Text style={styles.closeLogin}>Close Login</Text>
+          {/* Logout Button */}
+          <TouchableOpacity style={styles.logoutButton}>
+            <Text style={styles.logoutText}>Logout</Text>
           </TouchableOpacity>
-        )}
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
-export default Login;
+export default login;
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    backgroundColor: "#050D2B",
+  },
   container: {
     flexGrow: 1,
-    backgroundColor: "#050D2B",
-    alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+    alignItems: "center",
+    padding: 15,
   },
-  card: {
-    backgroundColor: "rgba(30, 30, 46, 0.95)",
+  profileCard: {
+    backgroundColor: "#6B0FBE",
     borderRadius: 15,
-    padding: 20,
+    padding: 15,
     width: "100%",
-    maxWidth: 400,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  highlight: {
-    color: "#a855f7",
-  },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  label: {
-    color: "#aaa",
-    marginBottom: 5,
-    fontSize: 12,
-  },
-  input: {
-    backgroundColor: "#1e1e2e",
-    color: "#fff",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: "#444",
-  },
-  forgotPassword: {
-    color: "#a855f7",
-    textAlign: "right",
-    fontSize: 12,
-    marginBottom: 15,
-  },
-  loginButton: {
-    flexDirection: "row",
-    backgroundColor: "#9333ea",
-    borderRadius: 25,
-    justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 12,
     marginBottom: 20,
   },
-  loginButtonText: {
+  profilePic: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "red",
+    marginBottom: 10,
+  },
+  userInfo: {
+    alignItems: "center",
+  },
+  username: {
     color: "#fff",
-    fontWeight: "bold",
     fontSize: 16,
-    marginLeft: 5,
+    fontWeight: "bold",
   },
-  signupText: {
-    textAlign: "center",
-    color: "#aaa",
+  gtc: {
+    color: "#fff",
+    fontSize: 14,
+    marginTop: 4,
+  },
+  progressLabel: {
+    color: "#fff",
+    fontSize: 14,
+    marginBottom: 5,
+  },
+  progressBarContainer: {
+    width: "100%",
+    height: 10,
+    backgroundColor: "#300850",
+    borderRadius: 5,
+    overflow: "hidden",
+    marginBottom: 5,
+  },
+  progressFill: {
+    width: "35%",
+    height: "100%",
+    backgroundColor: "red",
+  },
+  levelText: {
+    color: "#fff",
     fontSize: 12,
+    marginBottom: 20,
   },
-  signupLink: {
-    color: "#a855f7",
-    textDecorationLine: "underline",
+  settingsCard: {
+    backgroundColor: "#FFE865",
+    borderRadius: 10,
+    padding: 15,
+    width: "100%",
   },
-  closeLogin: {
-    textAlign: "center",
-    fontSize: 12,
-    color: "#888",
-    marginTop: 10,
+  gtcEarned: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  gtcValue: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#000",
+    marginBottom: 10,
+  },
+  menuItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
+  },
+  menuText: {
+    fontSize: 14,
+    color: "#000",
+  },
+  menuValue: {
+    fontSize: 14,
+    color: "#000",
+    fontWeight: "bold",
+  },
+  logoutButton: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    paddingVertical: 8,
+    marginTop: 15,
+    alignItems: "center",
+  },
+  logoutText: {
+    color: "#000",
+    fontWeight: "bold",
   },
 });
