@@ -1,17 +1,26 @@
+import { router } from "expo-router";
 import React from "react";
 import {
-  View,
-  Text,
+  Dimensions,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
-  Dimensions,
+  View,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
 
 const categories = ["All Categories", "FF", "BGMI", "Valorant"];
 const emojis = ["🎮", "🎮", "🎮"];
+
+// Example games data
+const games = [
+  { id: 1, title: "Free Fire", description: "Battle Royale", pts: 50 },
+  { id: 2, title: "BGMI", description: "Classic Match", pts: 70 },
+  { id: 3, title: "Valorant", description: "Competitive FPS", pts: 100 },
+  { id: 4, title: "COD Mobile", description: "Multiplayer FPS", pts: 80 },
+];
 
 export default function Home() {
   return (
@@ -62,8 +71,24 @@ export default function Home() {
       {/* Game Section */}
       <Text style={styles.sectionTitle}>Games</Text>
       <View style={styles.grid}>
-        {[1, 2, 3, 4].map((item) => (
-          <View key={item} style={styles.gameCard} />
+        {games.map((game) => (
+          <TouchableOpacity
+            key={game.id}
+            style={styles.gameCard}
+            onPress={() =>
+              router.push({
+                pathname: "/missionDetails",
+                params: {
+                  id: game.id,
+                  title: game.title,
+                  description: game.description,
+                  pts: game.pts,
+                },
+              })
+            }
+          >
+            <Text style={styles.cardText}>{game.title}</Text>
+          </TouchableOpacity>
         ))}
       </View>
     </ScrollView>
@@ -151,5 +176,11 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
     marginBottom: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
